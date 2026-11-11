@@ -1,36 +1,22 @@
-
-<settings>
-
-    <servers>
-        <server>
-            <id>nextwork-nextwork-devops-cicd</id>
-            <username>aws</username>
-            <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
-        </server>
-    </servers>
-
-    <profiles>
-        <profile>
-            <id>nextwork-nextwork-devops-cicd</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>nextwork-nextwork-devops-cicd</id>
-                    <url>https://nextwork-44337688476.d.codeartifact.eu-west-1.amazonaws.com/maven/nextwork-devops-cicd/</url>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
-
-    <mirrors>
-        <mirror>
-            <id>nextwork-nextwork-devops-cicd</id>
-            <name>nextwork-nextwork-devops-cicd</name>
-            <url>https://nextwork-44337688476.d.codeartifact.eu-west-1.amazonaws.com/maven/nextwork-devops-cicd/</url>
-            <mirrorOf>*</mirrorOf>
-        </mirror>
-    </mirrors>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Optional: set both variables before using -s settings.xml.
+     Normal local builds and buildspec.yml do not use this file. -->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+  <servers>
+    <server>
+      <id>nextwork-codeartifact</id>
+      <username>aws</username>
+      <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
+    </server>
+  </servers>
+  <mirrors>
+    <mirror>
+      <id>nextwork-codeartifact</id>
+      <name>Explicitly configured optional private mirror</name>
+      <url>${env.CODEARTIFACT_MAVEN_URL}</url>
+      <mirrorOf>*</mirrorOf>
+    </mirror>
+  </mirrors>
 </settings>
