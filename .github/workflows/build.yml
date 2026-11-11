@@ -1,0 +1,26 @@
+name: Build learning WAR
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: war-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - run: mvn --batch-mode --no-transfer-progress clean verify
+      - name: Check archive contains the page and descriptor
+        run: |
+          jar tf target/nextwork-web-project.war > /tmp/war-contents.txt
+          grep -Fx 'index.jsp' /tmp/war-contents.txt
+          grep -Fx 'WEB-INF/web.xml' /tmp/war-contents.txt

@@ -1,21 +1,14 @@
 version: 0.2
 
+# This sample builds without account-specific AWS credentials.
+# Provisioning CodeBuild and deploying remain separate operations.
 phases:
   install:
     runtime-versions:
-      java: corretto8
-  pre_build:
-    commands:
-      - echo Initializing environment
-      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nextwork --domain-owner 443370688476 --region eu-west-1 --query authorizationToken --output text`
+      java: corretto17
   build:
     commands:
-      - echo Build started on `date`
-      - mvn -s settings.xml compile
-  post_build:
-    commands:
-      - echo Build completed on `date`
-      - mvn -s settings.xml package
+      - mvn --batch-mode --no-transfer-progress clean verify
 artifacts:
   files:
     - target/nextwork-web-project.war
