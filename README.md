@@ -12,7 +12,9 @@ With JDK 17+ and Maven 3.9.x:
 
 ```bash
 mvn --batch-mode --no-transfer-progress clean verify
-jar tf target/nextwork-web-project.war
+jar tf target/nextwork-web-project-2025.war
 ```
 
 The resulting WAR requires a separately configured compatible JSP/servlet container. Packaging does not prove deployment. Default builds require no AWS account. The optional `settings.xml` private mirror requires your own `CODEARTIFACT_MAVEN_URL` and `CODEARTIFACT_AUTH_TOKEN`; never commit token values.
+
+**Year provenance:** The `2025` suffix records this repository's creation year (created 2025-03-12). Later maintenance retains its own dates.
